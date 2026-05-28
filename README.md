@@ -34,7 +34,8 @@ uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
    **or** **New** → **Web Service** → connect the repo and set:
    - **Runtime**: Python
    - **Build command**: `pip install -r requirements.txt`
-   - **Start command**: `gunicorn wsgi:application --bind 0.0.0.0:$PORT`
+   - **Start command**: `gunicorn wsgi:application --bind 0.0.0.0:$PORT` (or `gunicorn app:app --bind 0.0.0.0:$PORT`)
+   - **Environment**: `PYTHON_VERSION` = `3.12.8` (avoid 3.14 until deps support it)
 3. Deploy. Your app will be at `https://harf-hizlisi.onrender.com` (or the name you choose).
 
 **Notes**

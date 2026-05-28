@@ -135,3 +135,7 @@ def create_app() -> Flask:
         return send_from_directory(STATIC_DIR, filename)
 
     return app
+
+
+# Gunicorn on Render often uses: gunicorn app:app
+app = create_app()

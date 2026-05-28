@@ -15,6 +15,6 @@ Point that file at this module, e.g.:
     from wsgi import application
 """
 
-from app import create_app
+from app import app
 
-application = create_app()
+application = app
