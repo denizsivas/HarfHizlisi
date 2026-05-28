@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HarfHizlisi</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/style.css?v=5" />
+</head>
+<body>
+  <div class="bg-shape bg-shape-a"></div>
+  <div class="bg-shape bg-shape-b"></div>
+
+  <main class="app">
+    <header class="hero">
+      <p class="eyebrow">Kelime Oyunu</p>
+      <img
+        class="hero-logo"
+        src="/harf_hizlisi.png"
+        alt="HarfHizlisi"
+        width="320"
+        height="120"
+        decoding="async"
+      />
+      <p class="subtitle">
+        3 harften 9 harfe kadar ilerle. Her 7 saniyede bir harf açılır.
+        Gizli her harf <strong>10 puan</strong> değerinde.
+      </p>
+    </header>
+
+    <section id="start-screen" class="panel">
+      <div class="rules">
+        <div class="rule"><span>1</span> 8 soru: 3–9 harf + bonus tur</div>
+        <div class="rule"><span>2</span> Her turda tek kategori teması (Bilim, Tarih, Kültür…)</div>
+        <div class="rule"><span>3</span> Erken bil, daha çok puan kazan — büyük/küçük harf fark etmez</div>
+      </div>
+      <button id="start-btn" class="btn btn-primary">Oyuna Başla</button>
+    </section>
+
+    <section id="game-screen" class="panel hidden">
+      <div class="hud">
+        <div class="stat">
+          <span class="stat-label">Soru</span>
+          <span id="question-label" class="stat-value">1 / 8</span>
+        </div>
+        <div class="stat">
+          <span class="stat-label">Toplam Puan</span>
+          <span id="total-score" class="stat-value">0</span>
+        </div>
+        <div class="stat">
+          <span class="stat-label">Potansiyel</span>
+          <span id="potential-points" class="stat-value accent">0</span>
+        </div>
+      </div>
+
+      <div class="round-card">
+        <p id="category-badge" class="category-badge">Kategori</p>
+        <p id="round-title" class="round-title">3 Harfli Kelime</p>
+        <p id="hint" class="hint">İpucu yükleniyor...</p>
+
+        <div id="masked-word" class="masked-word">···</div>
+
+        <div class="timer-row">
+          <div class="timer-track">
+            <div id="timer-fill" class="timer-fill"></div>
+          </div>
+          <span id="timer-text" class="timer-text">7s</span>
+        </div>
+        <p class="timer-caption">Sonraki harf açılımına kalan süre</p>
+
+        <form id="guess-form" class="guess-form">
+          <input
+            id="guess-input"
+            type="text"
+            autocomplete="off"
+            autocapitalize="characters"
+            placeholder="Tahminini yaz..."
+            maxlength="32"
+          />
+          <button type="submit" class="btn btn-primary">Gönder</button>
+        </form>
+
+        <p id="feedback" class="feedback" aria-live="polite"></p>
+        <div id="run-summary" class="run-summary hidden"></div>
+      </div>
+
+      <button id="next-btn" class="btn btn-secondary hidden">Sonraki Soru</button>
+      <button id="restart-btn" class="btn btn-ghost hidden">Yeni Oyun</button>
+    </section>
+  </main>
+
+  <script src="/app.js?v=4"></script>
+</body>
+</html>

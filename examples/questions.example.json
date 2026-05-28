@@ -1,0 +1,57 @@
+{
+  "mode": "replace",
+  "categories": {
+    "ornek": {
+      "label": "Örnek",
+      "description": "Yüklediğiniz soru seti için şablon",
+      "words_by_length": {
+        "3": [
+          { "word": "GÜL", "hint": "Kokulu bir çiçek" },
+          { "word": "GÖZ", "hint": "Görmemizi sağlayan organ" },
+          { "word": "YOL", "hint": "Araçların gittiği güzergâh" }
+        ],
+        "4": [
+          { "word": "KEDİ", "hint": "Miyavlayan ev hayvanı" },
+          { "word": "MAVİ", "hint": "Gökyüzünün rengi" },
+          { "word": "KALE", "hint": "Kuşatmalarda son direniş noktası" }
+        ],
+        "5": [
+          { "word": "KALEM", "hint": "Yazı yazmaya yarayan araç" },
+          { "word": "DENİZ", "hint": "Tuzlu büyük su kütlesi" },
+          { "word": "ORMAN", "hint": "Ağaçlarla kaplı geniş alan" }
+        ],
+        "6": [
+          { "word": "HEYKEL", "hint": "Üç boyutlu sanat eseri" },
+          { "word": "KARPUZ", "hint": "Yaz meyvesi, kırmızı içli" },
+          { "word": "FUTBOL", "hint": "11'e 11 oynanan top oyunu" },
+          { "word": "YILDIZ", "hint": "Gece gökyüzünde parlayan cisim" }
+        ],
+        "7": [
+          { "word": "OKYANUS", "hint": "Dünyanın en büyük su kütlesi" },
+          { "word": "HASTANE", "hint": "Hastaların tedavi edildiği yer" },
+          { "word": "TELEFON", "hint": "Arama yapılan taşınabilir cihaz" }
+        ],
+        "8": [
+          { "word": "İSTANBUL", "hint": "Boğaz'ın iki yakasında kurulu şehir" },
+          { "word": "PASAPORT", "hint": "Yurt dışına çıkış belgesi" },
+          { "word": "FOTOĞRAF", "hint": "Kamera ile yakalanan görüntü" }
+        ],
+        "9": [
+          { "word": "KÜTÜPHANE", "hint": "Kitapların bulunduğu sessiz yer" },
+          { "word": "MATEMATİK", "hint": "Sayılar ve şekiller bilimi" },
+          { "word": "DEMOKRASİ", "hint": "Halk egemenliğine dayanan yönetim" }
+        ]
+      },
+      "bonus": [
+        {
+          "word": "FOTOĞRAFÇILIK",
+          "hint": "Işık ve gölgeyle an yakalama sanatı"
+        },
+        {
+          "word": "MİLLİMÜCADELE",
+          "hint": "1919'da başlayan bağımsızlık savaşı"
+        }
+      ]
+    }
+  }
+}

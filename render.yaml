@@ -1,0 +1,11 @@
+# https://render.com/docs/blueprint-spec
+services:
+  - type: web
+    name: harf-hizlisi
+    runtime: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn wsgi:application --bind 0.0.0.0:$PORT
+    envVars:
+      - key: PYTHON_VERSION
+        value: "3.12.3"
