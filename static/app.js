@@ -17,8 +17,16 @@ const hintEl = document.getElementById("hint");
 const maskedWordEl = document.getElementById("masked-word");
 const timerFillEl = document.getElementById("timer-fill");
 const timerTextEl = document.getElementById("timer-text");
+const correctSplash = document.getElementById("correct-splash");
+const correctSplashTitle = document.getElementById("correct-splash-title");
+const correctSplashWord = document.getElementById("correct-splash-word");
+const correctSplashPoints = document.getElementById("correct-splash-points");
+
+const CORRECT_SPLASH_MS = 1000;
 
 let gameId = null;
+let splashTimer = null;
+let splashShowing = false;
 let pollTimer = null;
 let uiTimer = null;
 let latestState = null;
@@ -42,6 +50,43 @@ async function api(path, options = {}) {
 function showFeedback(message, tone = "neutral") {
   feedbackEl.textContent = message;
   feedbackEl.className = `feedback ${tone}`;
+}
+
+function setGuessFormDisabled(disabled) {
+  guessInput.disabled = disabled;
+  guessForm.querySelector("button").disabled = disabled;
+}
+
+function showCorrectSplash({ word, points, totalScore, finished = false }) {
+  return new Promise((resolve) => {
+    if (splashTimer) {
+      window.clearTimeout(splashTimer);
+      splashTimer = null;
+    }
+
+    splashShowing = true;
+    correctSplashTitle.textContent = finished ? "Tebrikler!" : "Doğru!";
+    correctSplashWord.textContent = word;
+    correctSplashPoints.textContent = `+${points} puan`;
+    totalScoreEl.textContent = totalScore;
+
+    correctSplash.classList.remove("hidden");
+    correctSplash.setAttribute("aria-hidden", "false");
+    requestAnimationFrame(() => {
+      correctSplash.classList.add("visible");
+    });
+
+    splashTimer = window.setTimeout(() => {
+      correctSplash.classList.remove("visible");
+      splashTimer = window.setTimeout(() => {
+        correctSplash.classList.add("hidden");
+        correctSplash.setAttribute("aria-hidden", "true");
+        splashTimer = null;
+        splashShowing = false;
+        resolve();
+      }, 180);
+    }, CORRECT_SPLASH_MS);
+  });
 }
 
 function extractRoundEpoch(state) {
@@ -102,8 +147,9 @@ function renderState(state, epoch = null) {
 
   const gameDone = state.game_status === "finished";
 
-  guessInput.disabled = gameDone;
-  guessForm.querySelector("button").disabled = gameDone;
+  if (!splashShowing) {
+    setGuessFormDisabled(gameDone);
+  }
 
   if (gameDone) {
     maskedWordEl.textContent = state.revealed_word || round.last_guess || round.masked_word;
@@ -214,9 +260,10 @@ async function startGame() {
 guessForm.addEventListener("submit", async (event) => {
   event.preventDefault();
   const guess = guessInput.value.trim();
-  if (!guess || !gameId) return;
+  if (!guess || !gameId || splashShowing) return;
 
   stopPolling();
+  setGuessFormDisabled(true);
 
   try {
     const result = await api(`/api/game/${gameId}/guess`, {
@@ -224,26 +271,28 @@ guessForm.addEventListener("submit", async (event) => {
       body: JSON.stringify({ guess }),
     });
 
-    const nextEpoch = Date.now();
-    renderState(result, nextEpoch);
-
     if (result.correct) {
       guessInput.value = "";
+      const finished = result.game_status === "finished";
 
-      if (result.game_status === "finished") {
-        showFeedback(
-          `${result.revealed_word} — +${result.points_awarded} puan. Oyun bitti! Toplam: ${result.total_score}`,
-          "success"
-        );
+      await showCorrectSplash({
+        word: result.revealed_word,
+        points: result.points_awarded,
+        totalScore: result.total_score,
+        finished,
+      });
+
+      renderState(result, Date.now());
+
+      if (finished) {
+        showFeedback(`Oyun bitti! Toplam puan: ${result.total_score}`, "success");
       } else {
-        showFeedback(
-          `${result.revealed_word} — +${result.points_awarded} puan. Sonraki soru!`,
-          "success"
-        );
+        showFeedback("", "neutral");
         guessInput.focus();
         startPolling();
       }
     } else {
+      renderState(result, Date.now());
       showFeedback(result.message, "error");
       guessInput.select();
       startPolling();
@@ -251,6 +300,10 @@ guessForm.addEventListener("submit", async (event) => {
   } catch (error) {
     showFeedback(error.message, "error");
     startPolling();
+  } finally {
+    if (!splashShowing && latestState?.game_status !== "finished") {
+      setGuessFormDisabled(false);
+    }
   }
 });
 

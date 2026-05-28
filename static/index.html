@@ -7,7 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/style.css?v=5" />
+  <link rel="stylesheet" href="/style.css?v=7" />
 </head>
 <body>
   <div class="bg-shape bg-shape-a"></div>
@@ -37,6 +37,42 @@
         <div class="rule"><span>3</span> Erken bil, daha çok puan kazan — büyük/küçük harf fark etmez</div>
       </div>
       <button id="start-btn" class="btn btn-primary">Oyuna Başla</button>
+
+      <details id="upload-panel" class="upload-panel">
+        <summary>Soru bankası yükle (JSON)</summary>
+        <div class="upload-body">
+          <p class="upload-hint">
+            <code>categories</code> içeren bir JSON dosyası seçin.
+            <a href="/api/questions/example" download="questions.example.json">Örnek şablon</a>
+          </p>
+
+          <div id="upload-dropzone" class="upload-dropzone" tabindex="0" role="button" aria-label="JSON dosyası seç">
+            <input id="upload-file" type="file" accept=".json,application/json" hidden />
+            <span id="upload-file-label" class="upload-file-label">Dosyayı sürükleyin veya tıklayın</span>
+            <span id="upload-file-name" class="upload-file-name hidden"></span>
+          </div>
+
+          <fieldset class="upload-mode">
+            <legend>Yükleme modu</legend>
+            <label class="upload-mode-option">
+              <input type="radio" name="upload-mode" value="replace" checked />
+              <span><strong>Değiştir</strong> — mevcut bankanın tamamını sil</span>
+            </label>
+            <label class="upload-mode-option">
+              <input type="radio" name="upload-mode" value="merge" />
+              <span><strong>Birleştir</strong> — aynı id varsa üzerine yaz</span>
+            </label>
+          </fieldset>
+
+          <div class="upload-actions">
+            <button type="button" id="upload-submit" class="btn btn-primary" disabled>Yükle</button>
+            <button type="button" id="upload-download" class="btn btn-secondary">Mevcut bankayı indir</button>
+            <button type="button" id="upload-reset" class="btn btn-ghost">Varsayılana dön</button>
+          </div>
+
+          <p id="upload-status" class="upload-status" aria-live="polite"></p>
+        </div>
+      </details>
     </section>
 
     <section id="game-screen" class="panel hidden">
@@ -91,6 +127,16 @@
     </section>
   </main>
 
-  <script src="/app.js?v=4"></script>
+  <div id="correct-splash" class="correct-splash hidden" aria-hidden="true">
+    <div class="correct-splash-card">
+      <div class="correct-splash-icon" aria-hidden="true">✓</div>
+      <p id="correct-splash-title" class="correct-splash-title">Doğru!</p>
+      <p id="correct-splash-word" class="correct-splash-word"></p>
+      <p id="correct-splash-points" class="correct-splash-points"></p>
+    </div>
+  </div>
+
+  <script src="/app.js?v=5"></script>
+  <script src="/upload.js?v=1"></script>
 </body>
 </html>

@@ -451,6 +451,238 @@ body {
   }
 }
 
+.correct-splash {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background: rgba(8, 12, 18, 0.72);
+  backdrop-filter: blur(10px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.18s ease;
+}
+
+.correct-splash.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.correct-splash-card {
+  width: min(360px, 100%);
+  padding: 36px 28px;
+  border-radius: 28px;
+  text-align: center;
+  background: linear-gradient(
+    160deg,
+    rgba(34, 48, 38, 0.95),
+    rgba(22, 30, 40, 0.98)
+  );
+  border: 1px solid rgba(74, 222, 128, 0.35);
+  box-shadow:
+    0 24px 80px rgba(0, 0, 0, 0.5),
+    0 0 60px rgba(74, 222, 128, 0.12);
+  transform: scale(0.88);
+  animation: splash-pop 0.35s cubic-bezier(0.34, 1.4, 0.64, 1) forwards;
+}
+
+.correct-splash-icon {
+  width: 72px;
+  height: 72px;
+  margin: 0 auto 16px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: rgba(74, 222, 128, 0.18);
+  color: var(--success);
+  font-size: 2.4rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.correct-splash-title {
+  margin: 0 0 10px;
+  font-size: clamp(1.6rem, 6vw, 2rem);
+  font-weight: 700;
+  color: var(--success);
+  letter-spacing: 0.04em;
+}
+
+.correct-splash-word {
+  margin: 0 0 8px;
+  font-size: clamp(1.4rem, 5vw, 1.75rem);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  word-break: break-word;
+}
+
+.correct-splash-points {
+  margin: 0;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--accent);
+}
+
+@keyframes splash-pop {
+  to {
+    transform: scale(1);
+  }
+}
+
+.upload-panel {
+  margin-top: 20px;
+  border-top: 1px solid var(--surface-border);
+  padding-top: 16px;
+}
+
+.upload-panel summary {
+  cursor: pointer;
+  color: var(--muted);
+  font-weight: 600;
+  font-size: 0.92rem;
+  list-style: none;
+  user-select: none;
+}
+
+.upload-panel summary::-webkit-details-marker {
+  display: none;
+}
+
+.upload-panel summary::after {
+  content: " ▾";
+  color: var(--accent);
+}
+
+.upload-panel[open] summary::after {
+  content: " ▴";
+}
+
+.upload-body {
+  margin-top: 16px;
+}
+
+.upload-hint {
+  margin: 0 0 14px;
+  color: var(--muted);
+  font-size: 0.88rem;
+  line-height: 1.5;
+}
+
+.upload-hint code {
+  color: var(--accent);
+  font-size: 0.85em;
+}
+
+.upload-hint a {
+  color: var(--accent);
+}
+
+.upload-dropzone {
+  display: grid;
+  gap: 6px;
+  padding: 22px 16px;
+  border: 2px dashed rgba(255, 179, 71, 0.35);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.03);
+  text-align: center;
+  cursor: pointer;
+  transition: border-color 0.15s ease, background 0.15s ease;
+}
+
+.upload-dropzone:focus {
+  outline: 2px solid rgba(255, 179, 71, 0.35);
+  outline-offset: 2px;
+}
+
+.upload-dropzone.dragover,
+.upload-dropzone.has-file {
+  border-color: var(--accent);
+  background: rgba(255, 179, 71, 0.08);
+}
+
+.upload-file-label {
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.upload-file-name {
+  color: var(--text);
+  font-weight: 600;
+  word-break: break-all;
+}
+
+.upload-mode {
+  margin: 16px 0 0;
+  padding: 0;
+  border: 0;
+  display: grid;
+  gap: 10px;
+}
+
+.upload-mode legend {
+  padding: 0;
+  margin-bottom: 8px;
+  font-size: 0.82rem;
+  color: var(--muted);
+}
+
+.upload-mode-option {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 12px 14px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.03);
+  cursor: pointer;
+  font-size: 0.88rem;
+  color: var(--muted);
+  line-height: 1.4;
+}
+
+.upload-mode-option input {
+  margin-top: 3px;
+  accent-color: var(--accent);
+}
+
+.upload-mode-option strong {
+  color: var(--text);
+}
+
+.upload-actions {
+  display: grid;
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.upload-actions .btn-primary,
+.upload-actions .btn-secondary,
+.upload-actions .btn-ghost {
+  width: 100%;
+  margin-top: 0;
+}
+
+.upload-status {
+  min-height: 1.4em;
+  margin: 14px 0 0;
+  font-size: 0.88rem;
+  font-weight: 600;
+  line-height: 1.45;
+}
+
+.upload-status.success {
+  color: var(--success);
+}
+
+.upload-status.error {
+  color: var(--danger);
+}
+
+.upload-status.neutral {
+  color: var(--muted);
+}
+
 @media (hover: none) {
   .btn:hover {
     transform: none;
